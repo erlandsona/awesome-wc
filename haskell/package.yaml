@@ -48,6 +48,7 @@ default-extensions:
   - GADTs
   - GeneralizedNewtypeDeriving
   - LambdaCase
+  - OverloadedStrings
   - PolyKinds
   - RankNTypes
   - ScopedTypeVariables
@@ -57,8 +58,11 @@ default-extensions:
 
 dependencies:
   - base
+  - bytestring
+  - foldl
   - MissingH
   - mtl
+  - text
 
 executables:
   wc:
