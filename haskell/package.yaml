@@ -43,28 +43,16 @@ maintainer:          austin@erlandson.com
 
 ghc-options: -O2 -flate-specialise -fspecialise-aggressively
 default-extensions:
-  - DataKinds
-  - FlexibleContexts
-  - GADTs
-  - GeneralizedNewtypeDeriving
-  - LambdaCase
-  - OverloadedStrings
-  - PolyKinds
-  - RankNTypes
-  - ScopedTypeVariables
-  - TypeApplications
-  - TypeOperators
-  - TypeFamilies
+  - StrictData
 
 dependencies:
   - base
   - bytestring
-  - foldl
-  - MissingH
-  - mtl
-  - text
 
 executables:
   wc:
     main: WC.hs
-    ghc-options: -Wall -Werror -O2
+    ghc-options:
+      - -threaded
+      - -rtsopts
+      - -with-rtsopts=-N

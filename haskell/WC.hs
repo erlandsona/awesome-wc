@@ -1,9 +1,9 @@
-{-# LANGUAGE TypeFamilies #-}
-
 module Main where
 
 import Prelude hiding (sum, product, min, max, lines, words)
 
+import System.Environment (getArgs)
+import Control.Monad ((>=>))
 -- import Control.Monad.State (State, evalState, get, put)
 -- import qualified Control.Foldl as L
 import qualified Data.Char as Char
@@ -12,14 +12,24 @@ import qualified Data.Char as Char
 -- import Data.Functor.Product (Product(..))
 -- import qualified Control.Foldl as F
 -- import qualified Control.Foldl.Text as T
--- import Data.Foldable
-import qualified Data.Text.Lazy as L
-import qualified Data.Text.Lazy.IO as IO
+import Data.Foldable
+import qualified Data.ByteString.Lazy.Char8 as BL
 import Data.Semigroup (Sum(..))
+import Text.Printf
 
 
 main :: IO ()
-main = IO.interact $ L.unpack & foldMap count & format & show & L.pack
+main = getArgs >>= traverse_ (BL.readFile >=> program)
+
+program :: BL.ByteString -> IO ()
+program = foldCounts & format & display
+
+foldCounts :: BL.ByteString -> Counts
+foldCounts = BL.foldl' (flip (mappend . count)) mempty
+
+
+display :: Report -> IO ()
+display (Report chs wds lns) = printf "Lines: %d Words: %d Chars: %d\n" lns wds chs
 
 format :: Counts -> Report
 format (Counts chars lns (Flux _ wrds _)) =
