@@ -29,7 +29,7 @@ foldCounts = BL.foldl' (flip (mappend . count)) mempty
 
 
 display :: Report -> IO ()
-display (Report chs lns wds) = printf "Lines: %d Words: %d Chars: %d\n" lns wds chs
+display (Report chs lns wds) = printf "Chars: %d Lines: %d Words: %d\n" chs lns wds
 
 format :: Counts -> Report
 format (Counts chars lns (Flux _ wrds _)) =

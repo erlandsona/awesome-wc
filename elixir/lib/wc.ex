@@ -25,7 +25,7 @@ defmodule WC do
           d(%Flux{left, counter: c1, right: :alphanumeric}),
           d(%Flux{right, counter: c2, left: :alphanumeric})
         ) do
-      d(%Flux{left, right, counter: c1 <> c2 <> -1})
+      d(%Flux{left, right, counter: (c1 <> c2) <> -1})
     end
 
     def append(
@@ -55,26 +55,15 @@ defmodule WC do
 
   def process(file_path) do
     file_path
-    |> File.stream!([], 1)
-    # |> Stream.scan({0,0,WC.Flux.new()}, fn char, acc ->
-    #   Witchcraft.Semigroup.append({1, is_newline(char), flux(char)}, acc)
-    # end)
-    |> Enum.reduce({0, 0, Flux.new()}, fn char, acc ->
-      {1, is_newline(char), flux(char)} <> acc
+    |> File.stream!(read_ahead: 100_000)
+    |> Flow.from_enumerable()
+    |> Flow.flat_map(&String.graphemes/1)
+    #  FIXME: partitioning messes with the word count, :shrug:
+    # |> Flow.partition()
+    |> Flow.reduce(fn -> [{0, 0, Flux.new()}] end, fn char, [acc] ->
+        [{1, is_newline(char), flux(char)} <> acc]
     end)
+    |> Enum.reduce(&Witchcraft.Semigroup.append/2)
     |> (fn {chars, lines, %Flux{counter: words}} -> d(%{chars, lines, words}) end).()
-    |> IO.inspect()
   end
-  # TODO: Fix wrong output
-  # def process(file_path) do
-  #   file_path
-  #   |> File.stream!()
-  #   |> Stream.flat_map(&String.split(&1, ""))
-  #   |> Enum.reduce({0, 0, Flux.new()}, fn char, acc ->
-  #     {is_empty(char), is_newline(char), flux(char)} <> acc
-  #   end)
-  #   |> (fn {chars, lines, %Flux{counter: words}} -> d(%{chars, lines, words}) end).()
-  #   |> IO.inspect()
-  # end
-end
 end
