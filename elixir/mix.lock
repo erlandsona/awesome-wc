@@ -1,6 +1,8 @@
 %{
   "algae": {:hex, :algae, "1.2.3", "6ec177482faa12573a7edc65380fe5c9cdfa52ab32e01d0753aa52425b220827", [:mix], [{:quark, "~> 2.3", [hex: :quark, repo: "hexpm", optional: false]}, {:type_class, "~> 1.2", [hex: :type_class, repo: "hexpm", optional: false]}, {:witchcraft, "~> 1.0", [hex: :witchcraft, repo: "hexpm", optional: false]}], "hexpm"},
   "destructure": {:hex, :destructure, "0.2.3", "ee05a620c501a19d147782e3ae4f6a9746af05e42b342bba66e6fa43d94af93d", [:mix], [], "hexpm"},
+  "dialyxir": {:hex, :dialyxir, "1.0.0-rc.6", "78e97d9c0ff1b5521dd68041193891aebebce52fc3b93463c0a6806874557d7d", [:mix], [{:erlex, "~> 0.2.1", [hex: :erlex, repo: "hexpm", optional: false]}], "hexpm"},
+  "erlex": {:hex, :erlex, "0.2.4", "23791959df45fe8f01f388c6f7eb733cc361668cbeedd801bf491c55a029917b", [:mix], [], "hexpm"},
   "exceptional": {:hex, :exceptional, "2.1.1", "f18f8c1be63aab7fe8f3000cf2a8678936544fc39af1e2bc4a5c3c9e38cd8899", [:mix], [], "hexpm"},
   "operator": {:hex, :operator, "0.2.0", "b613bdb520a20dbc016d921d444fd2ef2212136be9385d6dca448a2a38d0577f", [:mix], [], "hexpm"},
   "quark": {:hex, :quark, "2.3.0", "3742ddc14441b4930c7067741879cb5b3e4881f391ea0aed7b138f20d16b30bb", [:mix], [], "hexpm"},

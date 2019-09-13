@@ -23,6 +23,7 @@ defmodule Elixir.MixProject do
     [
       {:algae, "~> 1.2"},
       {:destructure, "~> 0.2.3"},
+      {:dialyxir, "~> 1.0.0-rc.6", only: [:dev], runtime: false},
       {:type_class, "~> 1.1"},
       {:witchcraft, "~> 1.0"}
     ]
